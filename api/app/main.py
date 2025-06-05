@@ -12,11 +12,10 @@ app.add_middleware(
 )
 # -----------------
 
-# ルーターを import
 from .routers import health, candidate
-
-app = FastAPI(title="Recruiting API")
-
-# ルーターを登録
 app.include_router(health.router, prefix="/health")
 app.include_router(candidate.router)          # /candidates/ にマウント
+
+# すでに health, candidate を登録している場所に ↓ を追加
+from .routers import graph
+app.include_router(graph.router)
